@@ -4,7 +4,7 @@
   "description": "A VSCode extension to convert line comments to single-line block comments.",
   "version": "0.0.1",
   "publisher": "tanjingchuan",
-  "repository": "https://github.com/tanjingchuan/comment-converter",
+  "repository": "https://github.com/tanjingchuan/comment-converter.git",
   "engines": {
     "vscode": "^1.50.0"
   },
