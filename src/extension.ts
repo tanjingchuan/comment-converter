@@ -23,13 +23,26 @@ export function activate(context: vscode.ExtensionContext) {
 
 function convertComments(text: string): string {
     const lines = text.split('\n');
-    const convertedLines = lines.map(line => {
-        const match = line.match(/^\s*\/\/\s*(.*)$/);
+    const convertedLines: string[] = [];
+    
+    lines.forEach(line => {
+        // Handle end-of-line comments
+        let match = line.match(/^(\s*)(.*?)(\s*)\/\/\s*(.*)$/);
         if (match) {
-            return `/* ${match[1]} */`;
+            const indent = match[1];
+            const code = match[2].trimRight();
+            const comment = match[4];
+            if (code) {
+                convertedLines.push(`${indent}/** ${comment} */`);
+                convertedLines.push(`${indent}${code}`);
+            } else {
+                convertedLines.push(`${indent}/** ${comment} */`);
+            }
+        } else {
+            convertedLines.push(line);
         }
-        return line;
     });
+
     return convertedLines.join('\n');
 }
 
